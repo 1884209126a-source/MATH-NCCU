@@ -1,98 +1,424 @@
 
-# AGENTS.md — 數學慢慢懂
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>數學慢慢懂｜高中數學重點整理</title>
+<style>
+:root {
+  --green:#277c65;
+  --cream:#fbfaf6;
+  --ink:#263c36;
+  --line:#e4e9e1;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--cream);color:var(--ink);
+  font-family:system-ui,"Microsoft JhengHei",sans-serif;
+  line-height:1.8;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+header{background:white;border-bottom:1px solid var(--line)}
+.wrap{max-width:1100px;margin:auto;padding:0 22px}
+.top{
+  height:74px;display:flex;align-items:center;
+  justify-content:space-between;
+}
+.logo{font-size:23px;font-weight:800}
+.logo span{color:var(--green)}
+.pill{
+  background:#eaf5ef;color:var(--green);
+  padding:5px 15px;border-radius:30px;font-size:13px;
+}
+.hero{
+  margin:28px 0;padding:48px;
+  background:#e5f2e8;border-radius:24px;
+}
+.hero h1{font-size:42px;line-height:1.4;margin:12px 0}
+.hero p{color:#52695c}
+.tag{color:var(--green);font-size:13px;font-weight:bold}
+.tools{
+  display:flex;justify-content:space-between;
+  gap:15px;flex-wrap:wrap;margin:25px 0;
+}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filter,.navbtn,.back{
+  background:white;border:1px solid var(--line);
+  padding:10px 15px;border-radius:12px;color:var(--ink);
+}
+.filter.active,.navbtn.primary{
+  background:var(--green);color:white;
+}
+input{
+  padding:10px 15px;border-radius:12px;
+  border:1px solid var(--line);
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+.card{
+  background:white;border:1px solid var(--line);
+  border-radius:20px;padding:25px;text-align:left;
+  display:flex;flex-direction:column;gap:10px;
+  min-height:245px;transition:.2s;
+}
+.card:hover{transform:translateY(-4px);border-color:#9ccbad}
+.symbol{
+  width:55px;height:55px;display:grid;place-items:center;
+  background:#eff5e9;color:var(--green);
+  border-radius:15px;font-size:25px;font-weight:bold;
+}
+.card h3{font-size:22px;margin:0}
+.card p{color:#718078;font-size:14px;flex:1;margin:0}
+.more{color:var(--green);font-weight:bold}
+.hide{display:none!important}
+.lesson{max-width:800px;margin:32px auto}
+.lessonpanel{
+  background:white;border:1px solid var(--line);
+  padding:30px;border-radius:22px;min-height:360px;
+}
+.counter{color:var(--green);font-weight:bold;font-size:13px}
+.lessonpanel h2{font-size:30px}
+.lessonpanel p{white-space:pre-line}
+.formula{
+  background:#f0f7f1;border-left:4px solid var(--green);
+  border-radius:9px;padding:20px;font-size:21px;
+  font-weight:bold;white-space:pre-line;
+}
+.tip{
+  background:#fff0dc;padding:15px;
+  border-radius:10px;margin-top:16px;
+}
+.nav{
+  display:flex;align-items:center;
+  justify-content:space-between;
+  gap:10px;margin-top:20px;
+}
+.options{display:grid;gap:10px;margin-top:18px}
+.option{
+  text-align:left;background:white;
+  border:1px solid #cddbd2;
+  border-radius:11px;padding:12px;
+}
+.option.correct{background:#ddf4e4;border-color:#4a9d6d}
+.option.wrong{background:#ffe9e1;border-color:#d87e6e}
+.answer{
+  background:#f0f7f1;padding:15px;
+  border-radius:10px;margin-top:15px;
+}
+footer{text-align:center;padding:40px;color:#87938c}
+@media(max-width:850px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:590px){
+  .grid{grid-template-columns:1fr}
+  .hero{padding:25px}
+  .hero h1{font-size:30px}
+  .pill{display:none}
+  .lessonpanel{padding:20px}
+}
+</style>
+</head>
+<body>
 
-## 1. 專案目的
+<header>
+  <div class="wrap top">
+    <div class="logo">✦ 數學<span>慢慢懂</span></div>
+    <span class="pill">高中數學｜重點整理</span>
+  </div>
+</header>
 
-建立一個可持續擴充的高中數學重點整理網站。
+<main class="wrap">
+<section id="home">
+  <section class="hero">
+    <div class="tag">MATH NOTES / 學習資料庫</div>
+    <h1>每天一點點，<br>讓數學變簡單。</h1>
+    <p>高中數學觀念、必背公式、例題詳解與互動練習。</p>
+    <p>選擇一個章節，開始學習吧！</p>
+  </section>
 
-提供以下功能：
-- 高中數學觀念整理
-- 常用公式與定理
-- 例題逐步詳解
-- 互動式小測驗
+  <div class="tools">
+    <div class="filters" id="filters"></div>
+    <input id="search" placeholder="🔍 搜尋數學章節">
+  </div>
 
-目標是讓 AI 依照既定規則，快速增加新章節。
+  <h2>📚 章節講義｜6 章・24 頁</h2>
+  <div class="grid" id="cards"></div>
+</section>
 
-## 2. 網頁風格
+<section id="lesson" class="lesson hide">
+  <button class="back" id="back">← 返回全部章節</button>
 
-- 主題：簡約、溫暖的學習筆記網站
-- 主色：深綠色 #277c65
-- 背景色：奶油白 #fbfaf6
-- 使用圓角卡片展示數學章節
-- 所有內容使用繁體中文
-- 必須支援手機及電腦瀏覽
+  <div class="lessonpanel">
+    <div class="counter" id="counter"></div>
+    <h2 id="slideTitle"></h2>
+    <p id="slideBody"></p>
+    <div id="formula" class="formula hide"></div>
+    <div id="tip" class="tip hide"></div>
 
-## 3. 頁面結構
+    <div id="quiz" class="hide">
+      <div class="options" id="options"></div>
+      <div id="feedback" class="answer hide"></div>
+    </div>
+  </div>
 
-首頁：
-- 網站標題與介紹
-- 章節分類功能
-- 搜尋功能
-- 數學章節卡片
+  <div class="nav">
+    <button class="navbtn" id="prev">← 上一頁</button>
+    <span id="dots"></span>
+    <button class="navbtn primary" id="next">下一頁 →</button>
+  </div>
+</section>
+</main>
 
-每個數學章節包含四頁：
-1. 核心觀念
-2. 必背公式
-3. 例題詳解
-4. 隨堂小測驗
+<footer>
+  ✦ 數學慢慢懂｜高中數學重點整理網站
+</footer>
 
-## 4. 檔案結構
+<script>
+const chapters = [
+{
+  id:"quadratic",
+  title:"二次函數",
+  cat:"函數",
+  icon:"x²",
+  desc:"拋物線、頂點、判別式。",
+  concept:"二次函數的一般式為 y = ax² + bx + c，a ≠ 0。\n當 a > 0 時，開口向上；a < 0 時，開口向下。",
+  formula:"頂點 x = −b / (2a)\n判別式 D = b² − 4ac",
+  example:"題目：求 y = x² − 4x + 3 的頂點。\n\nStep 1：a = 1，b = −4。\nStep 2：x = −(−4)/(2×1) = 2。\nStep 3：y = 4 − 8 + 3 = −1。",
+  result:"答案：頂點 (2, −1)",
+  q:"y = x² − 6x + 5 的對稱軸是？",
+  opts:["x = 2","x = 3","x = 6"],
+  ans:1,
+  why:"x = −b/(2a) = 6/2 = 3。"
+},
+{
+  id:"log",
+  title:"指數與對數",
+  cat:"代數",
+  icon:"log",
+  desc:"指數律、對數律與換底公式。",
+  concept:"對數是指數的反向運算。\n當 aˣ = b 時，logₐb = x。\n條件為 a > 0、a ≠ 1、b > 0。",
+  formula:"aᵐ × aⁿ = aᵐ⁺ⁿ\nlogₐ(MN) = logₐM + logₐN\nlogₐM = log M / log a",
+  example:"題目：計算 log₂8 + log₂4。\n\nStep 1：log₂8 = 3。\nStep 2：log₂4 = 2。\nStep 3：3 + 2 = 5。",
+  result:"答案：5",
+  q:"log₃81 等於多少？",
+  opts:["3","4","9"],
+  ans:1,
+  why:"因為 3⁴ = 81，所以答案為 4。"
+},
+{
+  id:"trig",
+  title:"三角比",
+  cat:"幾何",
+  icon:"△",
+  desc:"sin、cos、tan 與恆等式。",
+  concept:"直角三角形中的三角比：\nsin 是對邊比斜邊。\ncos 是鄰邊比斜邊。\ntan 是對邊比鄰邊。",
+  formula:"sin θ = 對邊 / 斜邊\ncos θ = 鄰邊 / 斜邊\nsin²θ + cos²θ = 1",
+  example:"題目：斜邊為 5，角 θ 的對邊為 3，求 sin θ。\n\nStep 1：sin θ = 對邊 / 斜邊。\nStep 2：sin θ = 3/5。",
+  result:"答案：3/5",
+  q:"sin 30° 的值是？",
+  opts:["1/2","√2/2","1"],
+  ans:0,
+  why:"30° 的正弦值是 1/2。"
+},
+{
+  id:"sequence",
+  title:"數列與級數",
+  cat:"代數",
+  icon:"Σ",
+  desc:"等差、等比數列與級數。",
+  concept:"等差數列每兩項的差固定為 d。\n等比數列相鄰兩項的比固定為 r。",
+  formula:"等差：aₙ = a₁ + (n−1)d\n等差和：Sₙ = n(a₁+aₙ)/2\n等比：aₙ = a₁rⁿ⁻¹",
+  example:"題目：數列 3, 7, 11, ... 的第 10 項？\n\nStep 1：a₁ = 3，d = 4。\nStep 2：a₁₀ = 3 + 9×4。",
+  result:"答案：39",
+  q:"數列 2, 5, 8, ... 的公差是？",
+  opts:["2","3","5"],
+  ans:1,
+  why:"5 − 2 = 3。"
+},
+{
+  id:"probability",
+  title:"排列組合與機率",
+  cat:"機率",
+  icon:"%",
+  desc:"排列、組合與基本機率。",
+  concept:"排列重視順序，組合不計順序。\n等可能情況下，機率等於有利情況數除以全部情況數。",
+  formula:"P(n,r) = n! / (n−r)!\nC(n,r) = n! / [r!(n−r)!]\nP(A) = 有利情況數 / 總情況數",
+  example:"題目：從 5 人中選 2 位代表，有幾種方法？\n\nStep 1：不考慮順序，因此使用組合。\nStep 2：C(5,2) = 5!/(2!3!)。",
+  result:"答案：10 種",
+  q:"投擲公平骰子，出現偶數的機率是？",
+  opts:["1/3","1/2","2/3"],
+  ans:1,
+  why:"偶數有 2、4、6，共 3 種，所以是 3/6 = 1/2。"
+},
+{
+  id:"derivative",
+  title:"微分入門",
+  cat:"微積分",
+  icon:"dy",
+  desc:"導數、切線斜率與微分法則。",
+  concept:"導數代表函數的瞬間變化率，也就是切線斜率。\n可以透過基本微分法則求出。",
+  formula:"d(xⁿ)/dx = nxⁿ⁻¹\nd(c)/dx = 0\nd[f(x)+g(x)]/dx = f′(x)+g′(x)",
+  example:"題目：f(x) = 3x² + 2x − 5，求 f′(2)。\n\nStep 1：f′(x) = 6x + 2。\nStep 2：f′(2) = 6×2 + 2。",
+  result:"答案：14",
+  q:"f(x) = x³ 的導數是？",
+  opts:["x²","3x²","3x"],
+  ans:1,
+  why:"利用冪次微分法則，得到 3x²。"
+}
+];
 
-專案根目錄：
-- index.html：網頁與互動程式
-- AGENTS.md：AI 開發規範
-- README.md：專案說明（可新增）
+const $ = id => document.getElementById(id);
+let filter = "全部";
+let current = null;
+let page = 0;
 
-網站使用 HTML、CSS、JavaScript。
+const categories = ["全部","代數","函數","幾何","機率","微積分"];
 
-不需要資料庫或後端。
+function renderCards(){
+  $("filters").innerHTML = categories.map(c =>
+    `<button class="filter ${filter===c?'active':''}" data-cat="${c}">${c}</button>`
+  ).join("");
 
-## 5. 新增內容規範
+  const term = $("search").value.trim().toLowerCase();
+  const found = chapters.filter(c =>
+    (filter==="全部" || c.cat===filter) &&
+    (c.title+c.desc).toLowerCase().includes(term)
+  );
 
-新增數學章節時：
+  $("cards").innerHTML = found.map(c => `
+    <button class="card" data-id="${c.id}">
+      <span class="symbol">${c.icon}</span>
+      <span class="tag">${c.cat} · 4 頁筆記</span>
+      <h3>${c.title}</h3>
+      <p>${c.desc}</p>
+      <span class="more">開始學習 →</span>
+    </button>
+  `).join("") || "<p>找不到符合的章節。</p>";
 
-1. 在 chapters 陣列新增資料。
-2. 每個章節需要唯一的 id。
-3. 必須填寫章節名稱及分類。
-4. 必須包含觀念、公式、例題及測驗。
-5. 所有例題需提供完整計算過程。
-6. 測驗必須附上正確答案及解析。
-7. 新增分類時同步修改 categories 陣列。
-8. 更新首頁顯示的章節數量。
+  document.querySelectorAll("[data-cat]").forEach(b => {
+    b.onclick = () => {
+      filter = b.dataset.cat;
+      renderCards();
+    };
+  });
 
-## 6. AI 開發規則
+  document.querySelectorAll("[data-id]").forEach(b => {
+    b.onclick = () => {
+      current = chapters.find(c => c.id===b.dataset.id);
+      page = 0;
+      $("home").classList.add("hide");
+      $("lesson").classList.remove("hide");
+      renderSlide();
+      window.scrollTo(0,0);
+    };
+  });
+}
 
-AI 修改專案時必須：
+function renderSlide(){
+  const c = current;
+  const labels = ["觀念整理","必背公式","例題詳解","隨堂測驗"];
 
-- 先閱讀 AGENTS.md。
-- 保留原有網站的視覺風格。
-- 優先使用既有的頁面模板。
-- 不可任意刪除已完成的章節。
-- 不可破壞搜尋、分類、翻頁及測驗功能。
-- 確認數學公式及計算答案正確。
-- 保持網頁可在 GitHub Pages 正常使用。
+  $("counter").textContent =
+    `${c.title} · 第 ${page+1}/4 頁 · ${labels[page]}`;
 
-## 7. 完成前檢查
+  $("slideTitle").textContent = [
+    `先搞懂：${c.title}`,
+    "考前一定要記住",
+    "跟著做一次",
+    "輪到你試試看"
+  ][page];
 
-每次修改後檢查：
+  ["formula","tip","quiz","feedback"].forEach(id =>
+    $(id).classList.add("hide")
+  );
 
-- 首頁可以正常顯示。
-- 所有章節可以開啟。
-- 可以切換前後頁。
-- 測驗答案判斷正確。
-- 搜尋及分類正常。
-- 手機版排版沒有溢出。
-- GitHub Pages 可以正常瀏覽。
+  $("slideBody").textContent = [
+    c.concept,
+    "整理下列常用公式，考試時先辨認題型。",
+    c.example,
+    c.q
+  ][page];
 
-## 8. 未來擴充方向
+  if(page===1 || page===2){
+    $("formula").classList.remove("hide");
+    $("formula").textContent =
+      page===1 ? c.formula : c.result;
+  }
 
-未來可以新增：
-- 一元二次方程式
-- 多項式
-- 向量
-- 直線與圓
-- 空間幾何
-- 統計
-- 積分入門
+  if(page===0){
+    $("tip").classList.remove("hide");
+    $("tip").textContent =
+      "💡 先理解觀念，再記公式會更容易！";
+  }
 
-所有新增章節都必須遵循相同架構。
+  if(page===3){
+    $("quiz").classList.remove("hide");
+    $("options").innerHTML = c.opts.map((o,i) =>
+      `<button class="option" data-choice="${i}">
+        ${String.fromCharCode(65+i)}. ${o}
+      </button>`
+    ).join("");
+
+    document.querySelectorAll("[data-choice]").forEach(b => {
+      b.onclick = () => answer(Number(b.dataset.choice));
+    });
+  }
+
+  $("prev").disabled = page===0;
+  $("next").textContent =
+    page===3 ? "返回章節列表 ↗" : "下一頁 →";
+  $("dots").textContent = `${page+1} / 4`;
+}
+
+function answer(i){
+  const c = current;
+
+  document.querySelectorAll("[data-choice]").forEach(b => {
+    b.disabled = true;
+    if(Number(b.dataset.choice)===c.ans)
+      b.classList.add("correct");
+    else if(Number(b.dataset.choice)===i)
+      b.classList.add("wrong");
+  });
+
+  $("feedback").classList.remove("hide");
+  $("feedback").textContent =
+    (i===c.ans ? "✅ 答對了！" : "💡 再複習一次：")
+    + " " + c.why;
+}
+
+function goHome(){
+  $("lesson").classList.add("hide");
+  $("home").classList.remove("hide");
+  window.scrollTo(0,0);
+}
+
+$("search").oninput = renderCards;
+$("back").onclick = goHome;
+$("prev").onclick = () => {
+  if(page>0){
+    page--;
+    renderSlide();
+    window.scrollTo(0,0);
+  }
+};
+$("next").onclick = () => {
+  if(page<3){
+    page++;
+    renderSlide();
+    window.scrollTo(0,0);
+  }else{
+    goHome();
+  }
+};
+
+renderCards();
+</script>
+</body>
+</html>
+
